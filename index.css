@@ -31,6 +31,7 @@ header .site-logo {
     text-transform: uppercase;
     font-weight: 900;
     font-size: 25px;
+    margin-left: 6px;
 }
 
 header a {
@@ -252,4 +253,22 @@ i[class*='van-type-'] {
     border-radius: 5px;
     cursor: pointer;
     transition: transform .1s ease-in-out;
+}
+
+.host-nav {
+    display: flex;
+    margin: 0px 26px;
+}
+
+.host-nav a {
+    text-decoration: none;
+    color: #4D4D4D;
+    font-weight: 500;
+    padding: 5px 5px;
+}
+
+.host-nav a:hover {
+    color: #161616;
+    text-decoration: underline;
+    font-weight: 600;
 }
