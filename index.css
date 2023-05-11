@@ -2,7 +2,8 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     background-color: #FFF7ED;
@@ -10,14 +11,22 @@ html, body {
 }
 
 body::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 body {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
+.site-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/*** HEADER ***/
 header {
     height: 110px;
     display: flex;
@@ -46,6 +55,28 @@ header a:hover {
     text-decoration: underline;
 }
 
+.site-logo:hover {
+    text-decoration: none;
+}
+
+
+/*** FOOTER ***/
+main {
+    margin-bottom: 84px;
+}
+
+footer {
+    background-color: #252525;
+    color: #AAAAAA;
+    height: 74px;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    font-weight: 500;
+}
+
 .link-button {
     display: inline-block;
     text-align: center;
@@ -62,6 +93,7 @@ header a:hover {
 .link-button:hover {
     transform: translate(1px, 1px);
 }
+
 
 /*** HOME PAGE ***/
 .home-container {
@@ -161,7 +193,7 @@ header a:hover {
 
 .van-tile a {
     color: #161616;
-    text-decoration: none;    
+    text-decoration: none;
 }
 
 .van-tile img {
@@ -198,15 +230,18 @@ header a:hover {
     color: #FFEAD0;
 }
 
-.van-type.simple:hover, .van-type.simple.selected {
+.van-type.simple:hover,
+.van-type.simple.selected {
     background-color: #E17654;
 }
 
-.van-type.rugged:hover, .van-type.rugged.selected {
+.van-type.rugged:hover,
+.van-type.rugged.selected {
     background-color: #115E59;
 }
 
-.van-type.luxury:hover, .van-type.luxury.selected {
+.van-type.luxury:hover,
+.van-type.luxury.selected {
     background-color: #161616;
 }
 
