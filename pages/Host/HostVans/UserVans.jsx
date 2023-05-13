@@ -11,7 +11,7 @@ export default function UserVans() {
     }, [])
 
     const vanElements = vans.map(van => (
-        <Link key={van.id} to={`/host/vans/${van.id}`}>
+        <Link key={van.id} to={van.id}>
             <div className="van-item">
                 <img src={van.imageUrl} />
                 <div className="host-van">
