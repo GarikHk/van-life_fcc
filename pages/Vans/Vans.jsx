@@ -1,23 +1,37 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Link, useSearchParams } from "react-router-dom"
+import { getVans } from "../../api"
 
 export default function Vans() {
-    const [vans, setVans] = React.useState([])
+    const [vans, setVans] = useState([])
     const [searchParams, setSearchParams] = useSearchParams()
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
 
     const typeFilter = searchParams.get("type")
 
-    React.useEffect(() => {
-        fetch("/api/vans")
-            .then(res => res.json())
-            .then(data => setVans(data.vans))
+    useEffect(() => {
+        async function loadVans() {
+            setLoading(true)
+            try {
+                const data = await getVans()
+                setVans(data)
+            } catch (err) {
+                console.log(err)
+                setError(err)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        loadVans()
     }, [])
 
     const vanElements = vans
         .filter(van => typeFilter ? van.type === typeFilter : true)
         .map(van => (
             <div key={van.id} className="van-tile">
-                <Link 
+                <Link
                     to={van.id}
                     state={{ search: `${searchParams.toString()}` }}
                 >
@@ -40,6 +54,14 @@ export default function Vans() {
             }
             return prevParams
         })
+    }
+
+    if (loading) {
+        return <h1 className="loading">Loading...</h1>
+    }
+
+    if (error) {
+        return <h1 className="loading">There was an error:{error.message}</h1>
     }
 
     return (
