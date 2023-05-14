@@ -9,8 +9,9 @@ import './server'
 import Layout from "./components/Layout"
 import Home from "./pages/Home"
 import About from "./pages/About"
+import Error from './components/Error';
 // Vans
-import Vans from './pages/Vans/Vans'
+import Vans, { loader } from './pages/Vans/Vans'
 import VanDetail from './pages/Vans/VanDetail'
 // Host
 import HostLayout from './components/HostLayout'
@@ -31,7 +32,12 @@ function App() {
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="about" element={<About />} />
-                <Route path="vans" element={<Vans />} />
+                <Route 
+                    path="vans" 
+                    element={<Vans />} 
+                    errorElement={<Error />}
+                    loader={loader}
+                />
                 <Route path="vans/:id" element={<VanDetail />} />
 
                 {/* Host */}
