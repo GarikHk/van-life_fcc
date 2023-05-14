@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
 
 // Server
 import './server'
@@ -26,33 +26,32 @@ import UserVanPricing from './pages/Host/HostVans/UserVanPricing'
 import NotFound from './pages/NotFound'
 
 function App() {
-    return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<Home />} />
-                    <Route path="about" element={<About />} />
-                    <Route path="vans" element={<Vans />} />
-                    <Route path="vans/:id" element={<VanDetail />} />
+    const router = createBrowserRouter(
+        createRoutesFromElements(
+            <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="about" element={<About />} />
+                <Route path="vans" element={<Vans />} />
+                <Route path="vans/:id" element={<VanDetail />} />
 
-                    {/* Host */}
-                    <Route path="host" element={<HostLayout />}>
-                        <Route index element={<Dashboard />} />
-                        <Route path="income" element={<Income />} />
-                        <Route path="vans" element={<UserVans />} />
-                        <Route path="vans/:id" element={<UserVansDetails />}>
-                            <Route index element={<UserVanInfo />} />
-                            <Route path='pricing' element={<UserVanPricing />} />
-                            <Route path='photos' element={<UserVanPhotos />} />
-                        </Route>
-                        <Route path="reviews" element={<Reviews />} />
+                {/* Host */}
+                <Route path="host" element={<HostLayout />}>
+                    <Route index element={<Dashboard />} />
+                    <Route path="income" element={<Income />} />
+                    <Route path="vans" element={<UserVans />} />
+                    <Route path="vans/:id" element={<UserVansDetails />}>
+                        <Route index element={<UserVanInfo />} />
+                        <Route path='pricing' element={<UserVanPricing />} />
+                        <Route path='photos' element={<UserVanPhotos />} />
                     </Route>
-                    
-                    <Route path="*" element={<NotFound />} />
+                    <Route path="reviews" element={<Reviews />} />
                 </Route>
-            </Routes>
-        </BrowserRouter>
+
+                <Route path="*" element={<NotFound />} />
+            </Route>
+        )
     )
+    return <RouterProvider router={router} />
 }
 
 ReactDOM
