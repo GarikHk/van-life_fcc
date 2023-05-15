@@ -20,13 +20,13 @@ import HostLayout from './components/HostLayout'
 import Dashboard from './pages/Host/Dashboard'
 import Income from './pages/Host/Income'
 import Reviews from './pages/Host/Reviews'
-import UserVans, { loader as hostVansLoader} from './pages/Host/HostVans/UserVans'
-import UserVansDetails, { loader as hostVanDetailLoader} from './pages/Host/HostVans/UserVanDetail'
+import UserVans, { loader as hostVansLoader } from './pages/Host/HostVans/UserVans'
+import UserVansDetails, { loader as hostVanDetailLoader } from './pages/Host/HostVans/UserVanDetail'
 import UserVanInfo from './pages/Host/HostVans/UserVanInfo'
 import UserVanPhotos from './pages/Host/HostVans/UserVanPhotos'
 import UserVanPricing from './pages/Host/HostVans/UserVanPricing'
 // Login
-import Login from './pages/Login';
+import Login, { loader as loginLoader } from './pages/Login';
 // NotFound
 import NotFound from './pages/NotFound'
 
@@ -36,33 +36,37 @@ function App() {
             <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route path="about" element={<About />} />
-                <Route path="login" element={<Login />} />
+                <Route
+                    path="login"
+                    element={<Login />}
+                    loader={loginLoader}
+                />
                 <Route
                     path="vans"
                     element={<Vans />}
                     errorElement={<Error />}
                     loader={vansLoader}
                 />
-                <Route 
-                    path="vans/:id" 
-                    element={<VanDetail />} 
-                    loader={vanDetailLoader}    
+                <Route
+                    path="vans/:id"
+                    element={<VanDetail />}
+                    loader={vanDetailLoader}
                 />
 
                 {/* Host */}
-                <Route 
-                    path="host" 
+                <Route
+                    path="host"
                     element={<HostLayout />}
                     loader={async () => await requireAuth()}
                 >
                     <Route index element={<Dashboard />} />
                     <Route path="income" element={<Income />} />
-                    <Route 
+                    <Route
                         path="vans"
                         element={<UserVans />}
                         loader={hostVansLoader}
                     />
-                    <Route 
+                    <Route
                         path="vans/:id"
                         element={<UserVansDetails />}
                         loader={hostVanDetailLoader}
