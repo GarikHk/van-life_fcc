@@ -11,8 +11,6 @@ export default function Vans() {
     const vans = useLoaderData()
     const typeFilter = searchParams.get("type")
 
-    console.log(vans)
-
     const vanElements = vans
         .filter(van => typeFilter ? van.type === typeFilter : true)
         .map(van => (
