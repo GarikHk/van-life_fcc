@@ -606,3 +606,8 @@ i[class*='host-van-type-'] {
     color: white;
     font-family: "Inter", sans-serif;
 }
+
+.login-form > button:disabled {
+    background-color: #8B4000;
+    cursor: not-allowed;
+}

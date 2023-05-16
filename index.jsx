@@ -26,7 +26,7 @@ import UserVanInfo from './pages/Host/HostVans/UserVanInfo'
 import UserVanPhotos from './pages/Host/HostVans/UserVanPhotos'
 import UserVanPricing from './pages/Host/HostVans/UserVanPricing'
 // Login
-import Login, { loader as loginLoader } from './pages/Login';
+import Login, { loader as loginLoader, action as loginAction } from './pages/Login';
 // NotFound
 import NotFound from './pages/NotFound'
 
@@ -40,6 +40,7 @@ function App() {
                     path="login"
                     element={<Login />}
                     loader={loginLoader}
+                    action={loginAction}
                 />
                 <Route
                     path="vans"
