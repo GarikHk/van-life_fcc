@@ -1,6 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom"
+import { 
+    createBrowserRouter, 
+    createRoutesFromElements, 
+    Route, 
+    RouterProvider 
+} from "react-router-dom"
 
 // Server
 import './server'
@@ -58,7 +63,7 @@ function App() {
                 <Route
                     path="host"
                     element={<HostLayout />}
-                    loader={async () => await requireAuth()}
+                    loader={async ({ request }) => await requireAuth(request)}
                 >
                     <Route index element={<Dashboard />} />
                     <Route path="income" element={<Income />} />
