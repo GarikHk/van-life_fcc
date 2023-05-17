@@ -1,33 +1,37 @@
-import React from "react"
-import { Link, useSearchParams, useLoaderData } from "react-router-dom"
+import React, { Suspense } from "react"
+import { Link, useSearchParams, useLoaderData, defer, Await } from "react-router-dom"
 import { getVans } from "../../api"
 
 export function loader() {
-    return getVans()
+    return defer({ vans: getVans() })
 }
 
 export default function Vans() {
     const [searchParams, setSearchParams] = useSearchParams()
-    const vans = useLoaderData()
+    const dataPromise = useLoaderData()
     const typeFilter = searchParams.get("type")
 
-    const vanElements = vans
-        .filter(van => typeFilter ? van.type === typeFilter : true)
-        .map(van => (
-            <div key={van.id} className="van-tile">
-                <Link
-                    to={van.id}
-                    state={{ search: `${searchParams.toString()}` }}
-                >
-                    <img src={van.imageUrl} />
-                    <div className="van-info">
-                        <h3>{van.name}</h3>
-                        <p>${van.price}<span>/day</span></p>
-                    </div>
-                    <i className={`van-type ${van.type} selected`}>{van.type}</i>
-                </Link>
-            </div>
-        ))
+    function resolvedVans(vans) {
+        const vanElements = vans
+            .filter(van => typeFilter ? van.type === typeFilter : true)
+            .map(van => (
+                <div key={van.id} className="van-tile">
+                    <Link
+                        to={van.id}
+                        state={{ search: `${searchParams.toString()}` }}
+                    >
+                        <img src={van.imageUrl} />
+                        <div className="van-info">
+                            <h3>{van.name}</h3>
+                            <p>${van.price}<span>/day</span></p>
+                        </div>
+                        <i className={`van-type ${van.type} selected`}>{van.type}</i>
+                    </Link>
+                </div>
+            ))
+
+        return vanElements
+    }
 
     function handleFilterChange(key, value) {
         setSearchParams(prevParams => {
@@ -75,7 +79,11 @@ export default function Vans() {
 
             </div>
             <div className="van-list">
-                {vanElements}
+                <Suspense fallback={<h3 className="loading">Loading...</h3>}>
+                    <Await resolve={dataPromise.vans}>
+                        {resolvedVans}
+                    </Await>
+                </Suspense>
             </div>
         </div>
     )

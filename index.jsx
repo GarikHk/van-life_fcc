@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { 
-    createBrowserRouter, 
-    createRoutesFromElements, 
-    Route, 
-    RouterProvider 
+import {
+    createBrowserRouter,
+    createRoutesFromElements,
+    Route,
+    RouterProvider
 } from "react-router-dom"
 
 // Server
@@ -22,7 +22,7 @@ import Vans, { loader as vansLoader } from './pages/Vans/Vans'
 import VanDetail, { loader as vanDetailLoader } from './pages/Vans/VanDetail'
 // Host
 import HostLayout from './components/HostLayout'
-import Dashboard from './pages/Host/Dashboard'
+import Dashboard, { loader as dashboardLoader } from './pages/Host/Dashboard'
 import Income from './pages/Host/Income'
 import Reviews from './pages/Host/Reviews'
 import UserVans, { loader as hostVansLoader } from './pages/Host/HostVans/UserVans'
@@ -56,6 +56,7 @@ function App() {
                 <Route
                     path="vans/:id"
                     element={<VanDetail />}
+                    errorElement={<Error />}
                     loader={vanDetailLoader}
                 />
 
@@ -65,16 +66,22 @@ function App() {
                     element={<HostLayout />}
                     loader={async ({ request }) => await requireAuth(request)}
                 >
-                    <Route index element={<Dashboard />} />
+                    <Route
+                        index
+                        element={<Dashboard />}
+                        loader={dashboardLoader}
+                    />
                     <Route path="income" element={<Income />} />
                     <Route
                         path="vans"
                         element={<UserVans />}
+                        errorElement={<Error />}
                         loader={hostVansLoader}
                     />
                     <Route
                         path="vans/:id"
                         element={<UserVansDetails />}
+                        errorElement={<Error />}
                         loader={hostVanDetailLoader}
                     >
                         <Route index element={<UserVanInfo />} />
