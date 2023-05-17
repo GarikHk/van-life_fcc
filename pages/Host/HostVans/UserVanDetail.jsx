@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink, Outlet, Link, useLoaderData } from "react-router-dom";
-import { getHostVans } from "../../../api";
+import { getVan } from "../../../api";
 
 export function loader({ params }) {
-    return getHostVans(params.id)
+    return getVan(params.id)
 }
 
 export default function UserVanDetail() {
